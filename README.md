@@ -27,11 +27,16 @@ openssl rsa -in key.pem -outform PEM -pubout -out public.pem
 Generating a license file (read: signed hash of input string):
 
 ```bash
-python genlicense.py key.pem 12:34:56:78:AB license.bin
+python genlicense.py path/to/key.pem <input string> path/to/output_file.bin
 ```
 
 Checking the generated license file:
 
 ```bash
-python checklicense.py public.pem license.bin
+python checklicense.py path/to/public.pem path/to/output_file.bin
 ```
+
+`checklicense.py` is expected to generate the license content based on data
+from the machine it is deployed on. It will use this data and check against
+the signature produced by `genlicense.py`. Examples for such data would be
+hardware fingerprints or Mac-adresses, maybe in combination with unique user data.
